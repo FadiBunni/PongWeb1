@@ -163,7 +163,6 @@
 
 function Ball(scope) {
 	var ball = this;
-	var collision = false;
 
 	this.style = "green";
 	this.size = 10;
@@ -174,8 +173,8 @@ function Ball(scope) {
 			y: scope.constants.height / 2
 		},
 		velocity: {
-			velx: -5,
-			vely: -5
+			velx: ranInt(0,1) == 0 ? -5 : 5,
+			vely: ranInt(0,1) == 0 ? -5 : 5
 		}
 	};
 
@@ -185,8 +184,6 @@ function Ball(scope) {
 		scope.ctx.arc(ball.state.position.x, ball.state.position.y, this.size, 0, Math.PI * 2);
 		scope.ctx.fill();
 	}
-
-	console.log(collision);
 
 	ball.update = function ballUpdate(){
 		if(ball.state.position.x < 0) {
@@ -208,15 +205,13 @@ function Ball(scope) {
 
 
 			if(ball.state.position.x > scope.state.entities.player1.state.position.x && ball.state.position.x < scope.state.entities.player1.state.position.x + scope.state.entities.player1.state.sizeWidth){
-				if(ball.state.position.y > scope.state.entities.player1.state.position.y && ball.state.position.y < scope.state.entities.player1.state.position.y + scope.state.entities.player1.state.sizeWidth) {
+				if(ball.state.position.y > scope.state.entities.player1.state.position.y && ball.state.position.y < scope.state.entities.player1.state.position.y + scope.state.entities.player1.state.sizeLength) {
 					ball.state.velocity.velx *= -1;
-					collision = true;
 				}
 			}
 			if(ball.state.position.x > scope.state.entities.player2.state.position.x && ball.state.position.x < scope.state.entities.player2.state.position.x + scope.state.entities.player2.state.sizeWidth){
-				if(ball.state.position.y > scope.state.entities.player2.state.position.y && ball.state.position.y < scope.state.entities.player2.state.position.y + scope.state.entities.player2.state.sizeWidth) {
+				if(ball.state.position.y > scope.state.entities.player2.state.position.y && ball.state.position.y < scope.state.entities.player2.state.position.y + scope.state.entities.player2.state.sizeLength) {
 					ball.state.velocity.velx *= -1;
-					collision = true;
 				}
 			}
 			ball.state.position.x += ball.state.velocity.velx;
@@ -225,9 +220,9 @@ function Ball(scope) {
 		}
 
 	}
-	// function ranInt (Min, Max) {
-	// return Math.floor(Math.random() * (Max-Min+1) + Min);
-	// }
+	function ranInt (Min, Max) {
+	return Math.floor(Math.random() * (Max-Min+1) + Min);
+	}
 
 	return ball;
 }
@@ -243,21 +238,21 @@ function Player(scope, side) {
 
 	this.side = side;
 	this.style = side == "left" ? "red" : "blue";
-	this.sizeWidth = 25,
 	this.sizeLength = 140;
 
 	player.state = {
+		moveSpeed: 10,
+		sizeWidth: 25,
+		sizeLength: 140,
 		position: {
 			x: side == "left" ? 100 : scope.constants.width-100,
-			y: scope.constants.height / 2 - this.sizeLength / 2
-		},
-		moveSpeed: 10,
-		sizeWidth: 25
+			y: scope.constants.height / 2 - this.sizeLength  / 2
+		}
 	};
 
 	player.render = function playerRender() {
 		scope.ctx.fillStyle = this.style;
-		scope.ctx.fillRect(player.state.position.x, player.state.position.y, this.sizeWidth, this.sizeLength);
+		scope.ctx.fillRect(player.state.position.x, player.state.position.y, player.state.sizeWidth, player.state.sizeLength);
 	};
 
 	player.update = function playerUpdate() {
@@ -280,8 +275,8 @@ function Player(scope, side) {
 		// paddle stops at inner canvas.
 		if(player.state.position.y < 0) {
 			player.state.position.y = 0;
-		} else if(player.state.position.y > scope.constants.height  - this.sizeLength){
-			player.state.position.y = scope.constants.height  - this.sizeLength;
+		} else if(player.state.position.y > scope.constants.height  - player.state.sizeLength){
+			player.state.position.y = scope.constants.height  - player.state.sizeLength;
 		}
 	};
 

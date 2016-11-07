@@ -5,21 +5,21 @@ function Player(scope, side) {
 
 	this.side = side;
 	this.style = side == "left" ? "red" : "blue";
-	this.sizeWidth = 25,
 	this.sizeLength = 140;
 
 	player.state = {
+		moveSpeed: 10,
+		sizeWidth: 25,
+		sizeLength: 140,
 		position: {
 			x: side == "left" ? 100 : scope.constants.width-100,
-			y: scope.constants.height / 2 - this.sizeLength / 2
-		},
-		moveSpeed: 10,
-		sizeWidth: 25
+			y: scope.constants.height / 2 - this.sizeLength  / 2
+		}
 	};
 
 	player.render = function playerRender() {
 		scope.ctx.fillStyle = this.style;
-		scope.ctx.fillRect(player.state.position.x, player.state.position.y, this.sizeWidth, this.sizeLength);
+		scope.ctx.fillRect(player.state.position.x, player.state.position.y, player.state.sizeWidth, player.state.sizeLength);
 	};
 
 	player.update = function playerUpdate() {
@@ -42,8 +42,8 @@ function Player(scope, side) {
 		// paddle stops at inner canvas.
 		if(player.state.position.y < 0) {
 			player.state.position.y = 0;
-		} else if(player.state.position.y > scope.constants.height  - this.sizeLength){
-			player.state.position.y = scope.constants.height  - this.sizeLength;
+		} else if(player.state.position.y > scope.constants.height  - player.state.sizeLength){
+			player.state.position.y = scope.constants.height  - player.state.sizeLength;
 		}
 	};
 
