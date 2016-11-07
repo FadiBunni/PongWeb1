@@ -39,14 +39,11 @@ function Game(w, h, targetFps, showFps) {
         self.state.entities = self.state.entities || {};
         self.state.entities.player1 = new Player(self,"left");
         self.state.entities.player2 = new Player(self,"right");
-<<<<<<< HEAD
     }();
 
     var addBall = function addBall() {
         self.state.entities = self.state.entities || {};
         self.state.entities.ball = new Ball(self);
-=======
->>>>>>> 387050286f75a30e5b6ccc02f2e0339975bfb616
     }();
 
 	return this;

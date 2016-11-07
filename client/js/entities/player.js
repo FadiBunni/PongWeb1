@@ -1,11 +1,7 @@
-var Keys = require('../utils/utils.keys.js');
+var keys = require('../utils/utils.keys.js');
 
 function Player(scope, side) {
-<<<<<<< HEAD
 	var player = this;
-=======
-	keys = new Keys();
->>>>>>> 387050286f75a30e5b6ccc02f2e0339975bfb616
 
 	this.side = side;
 	this.style = side == "left" ? "red" : "blue";
@@ -17,16 +13,14 @@ function Player(scope, side) {
 			x: side == "left" ? 100 : scope.constants.width-100,
 			y: scope.constants.height / 2 - this.sizeLength / 2
 		},
-		moveSpeed: 10
+		moveSpeed: 10,
+		sizeWidth: this.sizeWidth
 	};
-
 
 	player.render = function playerRender() {
 		scope.ctx.fillStyle = this.style;
 		scope.ctx.fillRect(player.state.position.x, player.state.position.y, this.sizeWidth, this.sizeLength);
 	};
-
-
 
 	player.update = function playerUpdate() {
 		if(player.side == "left") {
@@ -42,21 +36,6 @@ function Player(scope, side) {
 			}
 			if(keys.isPressed.playerKeys.p2.up){
 				player.state.position.y -= player.state.moveSpeed;
-
-	this.update = function playerUpdate() {
-		if(this.side == "left") {
-			if(keys.key.p1.down){
-				this.y += this.speed;
-			}
-			if(keys.key.p1.up){
-				this.y -= this.speed;
-			}
-		} else {
-			if(keys.key.p2.down){
-				this.y += this.speed;
-			}
-			if(keys.key.p2.up){
-				this.y -= this.speed;
 			}
 		}
 

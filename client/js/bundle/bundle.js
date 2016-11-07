@@ -160,7 +160,6 @@
 
  module.exports = gameUpdate;
 },{}],4:[function(require,module,exports){
-<<<<<<< HEAD
 
 function Ball(scope) {
 	var ball = this;
@@ -203,24 +202,25 @@ function Ball(scope) {
 				ball.state.velocity.vely *= -1;
 			}
 
+
+
 			// var p1 = players[0];
 			// var p2 = players[1];
 
-			// if(this.x > p1.x && this.x < p1.x + p1.sizeWidth)
-			// 	if(this.y > p1.y && this.y < p1.y + p1.sizeLength) {
-			// 		this.velx *= -1;
-			// 		score[1] += scoreInc;
-			// 	}
-			// if(this.x > p2.x && this.x < p2.x + p2.sizeWidth)
-			// 	if(this.y > p2.y && this.y < p2.y + p2.sizeLength) {
-			// 		this.velx *= -1;
-			// 		score[0] += scoreInc;
-			// 	}
+			if(ball.state.position.x > scope.state.entities.player1.state.position.x && ball.state.position.x < scope.state.entities.player1.state.position.x + scope.state.entities.player1.sizeWidth)
+				if(ball.state.position.y > scope.state.entities.player1.state.position.y && this.y < ball.state.position.y + scope.state.entities.player1.sizeWidth) {
+					ball.state.velocity.velx *= -1;
+				}
+			if(ball.state.position.x > scope.state.entities.player2.state.position.x && ball.state.position.x < scope.state.entities.player2.state.position.x + scope.state.entities.player2.sizeWidth)
+				if(ball.state.position.y > scope.state.entities.player2.state.position.y && this.y < ball.state.position.y + scope.state.entities.player2.sizeWidth) {
+					ball.state.velocity.velx *= -1;
+				}
 			ball.state.position.x += ball.state.velocity.velx;
 			ball.state.position.y += ball.state.velocity.vely;
 		}
 
 	}
+	console.log(scope.state.entities.player1.state.position.x);
 	// function ranInt (Min, Max) {
 	// return Math.floor(Math.random() * (Max-Min+1) + Min);
 	// }
@@ -236,12 +236,6 @@ var keys = require('../utils/utils.keys.js');
 
 function Player(scope, side) {
 	var player = this;
-=======
-var Keys = require('../utils/utils.keys.js');
-
-function Player(scope, side) {
-	keys = new Keys();
->>>>>>> 387050286f75a30e5b6ccc02f2e0339975bfb616
 
 	this.side = side;
 	this.style = side == "left" ? "red" : "blue";
@@ -253,16 +247,14 @@ function Player(scope, side) {
 			x: side == "left" ? 100 : scope.constants.width-100,
 			y: scope.constants.height / 2 - this.sizeLength / 2
 		},
-		moveSpeed: 10
+		moveSpeed: 10,
+		sizeWidth: this.sizeWidth
 	};
-
 
 	player.render = function playerRender() {
 		scope.ctx.fillStyle = this.style;
 		scope.ctx.fillRect(player.state.position.x, player.state.position.y, this.sizeWidth, this.sizeLength);
 	};
-
-<<<<<<< HEAD
 
 	player.update = function playerUpdate() {
 		if(player.side == "left") {
@@ -278,22 +270,6 @@ function Player(scope, side) {
 			}
 			if(keys.isPressed.playerKeys.p2.up){
 				player.state.position.y -= player.state.moveSpeed;
-=======
-	this.update = function playerUpdate() {
-		if(this.side == "left") {
-			if(keys.key.p1.down){
-				this.y += this.speed;
-			}
-			if(keys.key.p1.up){
-				this.y -= this.speed;
-			}
-		} else {
-			if(keys.key.p2.down){
-				this.y += this.speed;
-			}
-			if(keys.key.p2.up){
-				this.y -= this.speed;
->>>>>>> 387050286f75a30e5b6ccc02f2e0339975bfb616
 			}
 		}
 
@@ -351,14 +327,11 @@ function Game(w, h, targetFps, showFps) {
         self.state.entities = self.state.entities || {};
         self.state.entities.player1 = new Player(self,"left");
         self.state.entities.player2 = new Player(self,"right");
-<<<<<<< HEAD
     }();
 
     var addBall = function addBall() {
         self.state.entities = self.state.entities || {};
         self.state.entities.ball = new Ball(self);
-=======
->>>>>>> 387050286f75a30e5b6ccc02f2e0339975bfb616
     }();
 
 	return this;
@@ -426,13 +399,9 @@ module.exports = {
 
 function Keys() {
 
-<<<<<<< HEAD
     this.isPressed = {};
 
     var playerKeys = {
-=======
-    var key = {
->>>>>>> 387050286f75a30e5b6ccc02f2e0339975bfb616
         p1: {
             up: false,
             down: false
@@ -443,7 +412,6 @@ function Keys() {
         }
     };
 
-<<<<<<< HEAD
      // Set up `onkeyup` event handler.
     document.onkeyup = function (ev) {
         if (ev.which === 87) { playerKeys.p1.up = false; }
@@ -465,51 +433,6 @@ function Keys() {
         configurable: true,
         enumerable: true
     });
-=======
-     // Set up `keyup` event handler.
-    function keyUp (ev) {
-        switch(ev.which){
-            // player 1 UP
-            case 87:
-                key.p1.up = false;
-            break;
-            // player 1 DOWN
-            case 83:
-                key.p1.down = false;
-            break;
-            // player 2 UP
-            case 38:
-                key.p2.up = false;
-            break;
-            // player 2 DOWN
-            case 40:
-                key.p2.down = false;
-            break;
-        }
-    }
-
-    // Set up `keydown` event handler.
-    function keyDown (ev) {
-        switch(ev.which){
-            // player 1 UP
-            case 87:
-                key.p1.up = true;
-            break;
-            // player 1 DOWN
-            case 83:
-                key.p1.down = true;
-            break;
-            // player 2 UP
-            case 38:
-                key.p2.up = true;
-            break;
-            // player 2 DOWN
-            case 40:
-                key.p2.down = true;
-            break;
-        }
-    }
->>>>>>> 387050286f75a30e5b6ccc02f2e0339975bfb616
 
     return this;
 }

@@ -40,24 +40,25 @@ function Ball(scope) {
 				ball.state.velocity.vely *= -1;
 			}
 
+
+
 			// var p1 = players[0];
 			// var p2 = players[1];
 
-			// if(this.x > p1.x && this.x < p1.x + p1.sizeWidth)
-			// 	if(this.y > p1.y && this.y < p1.y + p1.sizeLength) {
-			// 		this.velx *= -1;
-			// 		score[1] += scoreInc;
-			// 	}
-			// if(this.x > p2.x && this.x < p2.x + p2.sizeWidth)
-			// 	if(this.y > p2.y && this.y < p2.y + p2.sizeLength) {
-			// 		this.velx *= -1;
-			// 		score[0] += scoreInc;
-			// 	}
+			if(ball.state.position.x > scope.state.entities.player1.state.position.x && ball.state.position.x < scope.state.entities.player1.state.position.x + scope.state.entities.player1.sizeWidth)
+				if(ball.state.position.y > scope.state.entities.player1.state.position.y && this.y < ball.state.position.y + scope.state.entities.player1.sizeWidth) {
+					ball.state.velocity.velx *= -1;
+				}
+			if(ball.state.position.x > scope.state.entities.player2.state.position.x && ball.state.position.x < scope.state.entities.player2.state.position.x + scope.state.entities.player2.sizeWidth)
+				if(ball.state.position.y > scope.state.entities.player2.state.position.y && this.y < ball.state.position.y + scope.state.entities.player2.sizeWidth) {
+					ball.state.velocity.velx *= -1;
+				}
 			ball.state.position.x += ball.state.velocity.velx;
 			ball.state.position.y += ball.state.velocity.vely;
 		}
 
 	}
+	console.log(scope.state.entities.player1.state.position.x);
 	// function ranInt (Min, Max) {
 	// return Math.floor(Math.random() * (Max-Min+1) + Min);
 	// }
