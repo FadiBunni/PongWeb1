@@ -14,7 +14,7 @@ function Player(scope, side) {
 			y: scope.constants.height / 2 - this.sizeLength / 2
 		},
 		moveSpeed: 10,
-		sizeWidth: this.sizeWidth
+		sizeWidth: 25
 	};
 
 	player.render = function playerRender() {

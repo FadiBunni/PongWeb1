@@ -163,6 +163,7 @@
 
 function Ball(scope) {
 	var ball = this;
+	var collision = false;
 
 	this.style = "green";
 	this.size = 10;
@@ -173,8 +174,8 @@ function Ball(scope) {
 			y: scope.constants.height / 2
 		},
 		velocity: {
-			velx: 5,
-			vely: 5
+			velx: -5,
+			vely: -5
 		}
 	};
 
@@ -184,6 +185,8 @@ function Ball(scope) {
 		scope.ctx.arc(ball.state.position.x, ball.state.position.y, this.size, 0, Math.PI * 2);
 		scope.ctx.fill();
 	}
+
+	console.log(collision);
 
 	ball.update = function ballUpdate(){
 		if(ball.state.position.x < 0) {
@@ -204,23 +207,24 @@ function Ball(scope) {
 
 
 
-			// var p1 = players[0];
-			// var p2 = players[1];
-
-			if(ball.state.position.x > scope.state.entities.player1.state.position.x && ball.state.position.x < scope.state.entities.player1.state.position.x + scope.state.entities.player1.sizeWidth)
-				if(ball.state.position.y > scope.state.entities.player1.state.position.y && this.y < ball.state.position.y + scope.state.entities.player1.sizeWidth) {
+			if(ball.state.position.x > scope.state.entities.player1.state.position.x && ball.state.position.x < scope.state.entities.player1.state.position.x + scope.state.entities.player1.state.sizeWidth){
+				if(ball.state.position.y > scope.state.entities.player1.state.position.y && ball.state.position.y < scope.state.entities.player1.state.position.y + scope.state.entities.player1.state.sizeWidth) {
 					ball.state.velocity.velx *= -1;
+					collision = true;
 				}
-			if(ball.state.position.x > scope.state.entities.player2.state.position.x && ball.state.position.x < scope.state.entities.player2.state.position.x + scope.state.entities.player2.sizeWidth)
-				if(ball.state.position.y > scope.state.entities.player2.state.position.y && this.y < ball.state.position.y + scope.state.entities.player2.sizeWidth) {
+			}
+			if(ball.state.position.x > scope.state.entities.player2.state.position.x && ball.state.position.x < scope.state.entities.player2.state.position.x + scope.state.entities.player2.state.sizeWidth){
+				if(ball.state.position.y > scope.state.entities.player2.state.position.y && ball.state.position.y < scope.state.entities.player2.state.position.y + scope.state.entities.player2.state.sizeWidth) {
 					ball.state.velocity.velx *= -1;
+					collision = true;
 				}
+			}
 			ball.state.position.x += ball.state.velocity.velx;
 			ball.state.position.y += ball.state.velocity.vely;
+			
 		}
 
 	}
-	console.log(scope.state.entities.player1.state.position.x);
 	// function ranInt (Min, Max) {
 	// return Math.floor(Math.random() * (Max-Min+1) + Min);
 	// }
@@ -248,7 +252,7 @@ function Player(scope, side) {
 			y: scope.constants.height / 2 - this.sizeLength / 2
 		},
 		moveSpeed: 10,
-		sizeWidth: this.sizeWidth
+		sizeWidth: 25
 	};
 
 	player.render = function playerRender() {
